@@ -1,0 +1,21 @@
+body,
+div,
+ul,
+li,
+span,
+p,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  height: 100%;
+  padding: 20px;
+}
+
+.app-title {
+    font-size: 30px;
+    line-height: 50px;
+    text-align: center;
+}

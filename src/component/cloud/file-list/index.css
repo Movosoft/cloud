@@ -1,0 +1,35 @@
+.file-item {
+    float: left;
+    width: 150px;
+    height: 100px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.file-item:hover,.file-item.active {
+    background-color: #03d1ff;
+}
+
+.file-item-icon {
+    display: block;
+    font-size: 45px;
+    color: #787878;
+}
+
+.file-item-name {
+    font-size: 14px;
+}
+
+.file-list:after {
+    clear: both;
+}
+
+.file-list {
+    overflow: hidden;
+}
+
+.file-content {
+    padding: 20px;
+}

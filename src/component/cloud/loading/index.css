@@ -1,0 +1,12 @@
+.loading {
+    text-align: center;
+}
+
+.loading-icon {
+    display: block;
+    font-size: 100px;
+}
+
+.loading > p {
+    font-size: 20px;
+}
