@@ -19,7 +19,10 @@
 }
 
 .file-item-name {
+    overflow: hidden;
     font-size: 14px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .file-list:after {
