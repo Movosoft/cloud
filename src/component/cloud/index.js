@@ -10,7 +10,8 @@ import {
     CloudPaths,
     LoadingParam,
     ActiveParam,
-    ContextMenuParam
+    ContextMenuParam,
+    CopyItem
 } from "./model.js";
 import bindModel from "./bindModel.js";
 import Backbone from "backbone";
@@ -30,7 +31,8 @@ var Cloud = React.createClass({
             path: CloudPaths,
             loading: LoadingParam,
             active: ActiveParam,
-            contextMenu: ContextMenuParam
+            contextMenu: ContextMenuParam,
+            copyItem: CopyItem
         };
     },
     mixins: [bindModel],

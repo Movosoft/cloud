@@ -16,10 +16,15 @@ export const ContextMenuParam = new Backbone.Model({
     y: 0
 });
 
+export const CopyItem = new Backbone.Model({
+    item: {}
+});
+
 export default {
     CloudFiles,
     CloudPaths,
     LoadingParam,
     ActiveParam,
-    ContextMenuParam
+    ContextMenuParam,
+    CopyItem
 };
