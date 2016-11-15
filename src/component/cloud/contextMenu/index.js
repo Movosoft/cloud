@@ -1,16 +1,13 @@
 import React from "react";
+import { ContextMenuParam } from "../model.js";
 import "./index.css";
 
 var ContextMenu = React.createClass({
     render(){
-        var {
-            isBlank,
-            display,
-            x,
-            y
-        } = this.props;
-        if(display){
-            if(isBlank){
+        if(ContextMenuParam.get("display")){
+            const x = ContextMenuParam.get("x");
+            const y = ContextMenuParam.get("y");
+            if(ContextMenuParam.get("isBlank")){
                 return (
                     <ul className="context-menu" style={{left:x+"px",top:y+"px"}}>
                         <li>新建文件夹</li>

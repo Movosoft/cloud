@@ -1,6 +1,14 @@
 import React from "react";
 import { Icon } from "antd";
 
+import {
+    CloudFiles,
+    CloudPaths,
+    LoadingParam,
+    ActiveParam,
+    ContextMenuParam
+} from "../model.js";
+import _ from "underscore";
 import fileType from "./fileType.js";
 import Loading from "../loading";
 import "./index.css"
@@ -11,12 +19,11 @@ var FileItem = React.createClass({
         const {
             name,
             ext,
-            isFolder,
-            active
+            isFolder
         } = this.props;
         const type = fileType(ext,isFolder);
         return (
-            <li className={name === active ? "file-item active" : "file-item"} onDoubleClick={this.handleDoubleClick} onMouseDown={this.mousedown}>
+            <li className={name === ActiveParam.get("val") ? "file-item active" : "file-item"} onDoubleClick={this.handleDoubleClick} onMouseDown={this.mousedown}>
                 <span className="file-item-icon">
                     <Icon type={type}/>
                 </span>
@@ -26,8 +33,8 @@ var FileItem = React.createClass({
     },
     handleDoubleClick(){
         const {
-            path,
-            isFolder
+            isFolder,
+            path
         } = this.props;
         if(isFolder){
             hashHistory.push(path);
@@ -39,48 +46,41 @@ var FileItem = React.createClass({
     mousedown(e){
         e.stopPropagation();
         const {
-            name,
-            onPick,
-            contextMenu
+            name
         } = this.props;
-        onPick(name);
+        ActiveParam.set("val",name);
         if(e.button === 2){
-            contextMenu(true,false,e.clientX,e.clientY);
+            ContextMenuParam.set({
+                display: true,
+                isBlank: false,
+                x: e.clientX,
+                y: e.clientY
+            });
         }else{
-            contextMenu(false);
+            ContextMenuParam.set({
+                display: false
+            });
         }
     }
 });
 
 var FileList = React.createClass({
     render(){
-        const {
-            file,
-            path,
-            loading,
-            onPick,
-            active,
-            contextMenu
-        } = this.props;
-        var nodes = file.map(function(obj){
+        var nodes = _.map(CloudFiles.toJSON(),function(obj){
             return (
                 <FileItem
                     name={obj.name}
                     ext={obj.ext}
                     isFolder={obj.isFolder}
-                    key={path+"-"+obj.name}
+                    key={CloudPaths.toJSON()+"-"+obj.name}
                     path={obj.path}
-                    onPick={onPick}
-                    active={active}
-                    contextMenu={contextMenu}
                 />
             );
         });
-
         return (
             <div className="file-content">
                 {
-                    loading ?
+                    LoadingParam.get("val") ?
                     (
                         <Loading />
                     )

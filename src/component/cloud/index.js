@@ -6,6 +6,15 @@ import {
 } from "react-router"
 
 import {
+    CloudFiles,
+    CloudPaths,
+    LoadingParam,
+    ActiveParam,
+    ContextMenuParam
+} from "./model.js";
+import bindModel from "./bindModel.js";
+import Backbone from "backbone";
+import {
     getFileList
 } from "./api.js";
 import FileList from "./file-list";
@@ -17,48 +26,30 @@ import "./index.css";
 var Cloud = React.createClass({
     getInitialState: function(){
         return {
-            file: [],
-            path: [],
-            loading: false,
-            active: "",
-            contextMenu: {
-                isBlank: true,
-                display: false,
-                x: 0,
-                y: 0
-            }
+            file: CloudFiles,
+            path: CloudPaths,
+            loading: LoadingParam,
+            active: ActiveParam,
+            contextMenu: ContextMenuParam
         };
     },
+    mixins: [bindModel],
     render(){
         return (
             <div className="app" onContextMenu={(e)=>e.preventDefault()} onMouseDown={this.mouseDown}>
                 <h3 className="app-title">Cloud-云盘</h3>
-                <Nav value={this.state.path}/>
-                <FileList
-                    file={this.state.file}
-                    path={this.state.path}
-                    loading={this.state.loading}
-                    onPick={(name)=>this.setState({ active: name })}
-                    active={this.state.active}
-                    contextMenu={(display,isBlank,x,y)=>this.setState({
-                        contextMenu:{
-                            display: display,
-                            isBlank: isBlank,
-                            x: x,
-                            y: y
-                        }
-                    })}
-                />
-                <ContextMenu
-                    isBlank={this.state.contextMenu.isBlank}
-                    display={this.state.contextMenu.display}
-                    x={this.state.contextMenu.x}
-                    y={this.state.contextMenu.y}
-                />
+                <Nav />
+                <FileList />
+                <ContextMenu />
             </div>
         );
     },
     componentDidMount(){
+        this.setSingleDataFlow("CloudFiles","file");
+        this.setSingleDataFlow("CloudPaths","path");
+        this.setSingleDataFlow("LoadingParam","loading");
+        this.setSingleDataFlow("ActiveParam","active");
+        this.setSingleDataFlow("ContextMenuParam","contextMenu");
         const {params} = this.props;
         const {splat} = params;
         // console.info("componentDidMount",splat);
@@ -71,38 +62,33 @@ var Cloud = React.createClass({
         this.getFile(splat);
     },
     getFile(path){
-        this.setState({
-            loading: true
-        });
-        var that = this;
+        LoadingParam.set("val",true);
         getFileList(path,function(data){
-            that.setState({
-                file: data.file,
-                path: data.path.split("/"),
-                loading: false
+            CloudFiles.reset(data.file);
+            var pathArray = data.path.split("/");
+            var pathModeArray = pathArray.map(function(o){
+                return new Backbone.Model({
+                    path: o
+                });
             });
+            CloudPaths.reset(pathModeArray);
+            LoadingParam.set("val",false);
         },function(error){
             console.log(error);
         });
     },
     mouseDown(e){
-        this.setState({
-            active: ""
-        });
+        ActiveParam.set("val","");
         if(e.button === 2){
-            this.setState({
-                contextMenu: {
-                    isBlank: true,
-                    display: true,
-                    x: e.clientX,
-                    y: e.clientY
-                }
+            ContextMenuParam.set({
+                isBlank: true,
+                display: true,
+                x: e.clientX,
+                y: e.clientY
             });
         }else{
-            this.setState({
-                contextMenu: {
-                    display: false
-                }
+            ContextMenuParam.set({
+                 display: false
             });
         }
     }

@@ -1,4 +1,6 @@
 import React from "react";
+import { CloudPaths } from "../model.js";
+import _ from "underscore";
 import {
     Breadcrumb,
     Icon
@@ -7,15 +9,12 @@ import { Link } from "react-router";
 
 var Nav = React.createClass({
     render(){
-        const {
-            value
-        } = this.props;
         var to = "";
-        const nodes = value.map(function(o,i){
-            to += "/" + o;
+        const nodes = _.map(CloudPaths.toJSON(),function(o,i){
+            to += "/" + o.path;
             return (
                 <Breadcrumb.Item key={i}>
-                    <Link to={to}>{o}</Link>
+                    <Link to={to}>{o.path}</Link>
                 </Breadcrumb.Item>
             );
         });
