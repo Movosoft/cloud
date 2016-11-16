@@ -18,6 +18,10 @@
     color: #787878;
 }
 
+.file-item-cut {
+    color: #ccc;
+}
+
 .file-item-name {
     overflow: hidden;
     font-size: 14px;
@@ -35,4 +39,14 @@
 
 .file-content {
     padding: 20px;
+}
+
+.file-item-input {
+    width: 120px;
+    height: 20px;
+    text-indent: 5px;
+    font-size: 14px;
+    line-height: 30px;
+    outline: none;
+    border: none;
 }

@@ -11,7 +11,8 @@ import {
     LoadingParam,
     ActiveParam,
     ContextMenuParam,
-    CopyItem
+    CopyItem,
+    RenameParam
 } from "./model.js";
 import bindModel from "./bindModel.js";
 import Backbone from "backbone";
@@ -32,7 +33,8 @@ var Cloud = React.createClass({
             loading: LoadingParam,
             active: ActiveParam,
             contextMenu: ContextMenuParam,
-            copyItem: CopyItem
+            copyItem: CopyItem,
+            renameParam: RenameParam
         };
     },
     mixins: [bindModel],
@@ -52,6 +54,8 @@ var Cloud = React.createClass({
         this.setSingleDataFlow("LoadingParam","loading");
         this.setSingleDataFlow("ActiveParam","active");
         this.setSingleDataFlow("ContextMenuParam","contextMenu");
+        this.setSingleDataFlow("CopyItem","copyItem");
+        this.setSingleDataFlow("RenameParam","renameParam");
         const {params} = this.props;
         const {splat} = params;
         // console.info("componentDidMount",splat);
@@ -64,6 +68,9 @@ var Cloud = React.createClass({
         this.getFile(splat);
     },
     getFile(path){
+        ContextMenuParam.set({
+            display: false
+        });
         LoadingParam.set("val",true);
         getFileList(path,function(data){
             CloudFiles.reset(data.file);

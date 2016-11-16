@@ -9,6 +9,9 @@ export const LoadingParam = new Backbone.Model({
 export const ActiveParam = new Backbone.Model({
     val: ""
 });
+// export const ActiveParam = new Backbone.Model({
+//     item: {}
+// });
 export const ContextMenuParam = new Backbone.Model({
     isBlank: true,
     display: false,
@@ -16,7 +19,13 @@ export const ContextMenuParam = new Backbone.Model({
     y: 0
 });
 
+export const RenameParam  = new Backbone.Model({
+    val: "",
+    obj:{}
+});
+
 export const CopyItem = new Backbone.Model({
+    type: "",
     item: {}
 });
 
@@ -26,5 +35,6 @@ export default {
     LoadingParam,
     ActiveParam,
     ContextMenuParam,
+    RenameParam,
     CopyItem
 };
