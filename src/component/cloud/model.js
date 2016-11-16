@@ -6,12 +6,12 @@ export const CloudPaths = new Backbone.Collection();
 export const LoadingParam = new Backbone.Model({
     val: false
 });
-export const ActiveParam = new Backbone.Model({
-    val: ""
-});
 // export const ActiveParam = new Backbone.Model({
-//     item: {}
+//     val: ""
 // });
+export const ActiveParam = new Backbone.Model({
+    item: {}
+});
 export const ContextMenuParam = new Backbone.Model({
     isBlank: true,
     display: false,
@@ -20,8 +20,7 @@ export const ContextMenuParam = new Backbone.Model({
 });
 
 export const RenameParam  = new Backbone.Model({
-    val: "",
-    obj:{}
+    item: {}
 });
 
 export const CopyItem = new Backbone.Model({

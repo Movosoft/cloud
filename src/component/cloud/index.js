@@ -87,7 +87,7 @@ var Cloud = React.createClass({
         });
     },
     mouseDown(e){
-        ActiveParam.set("val","");
+        ActiveParam.set("item",{});
         if(e.button === 2){
             ContextMenuParam.set({
                 isBlank: true,

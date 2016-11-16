@@ -37,14 +37,16 @@ var FileItem = React.createClass({
             path
         } = this.props;
         var cutTag = CopyItem.get("type") === "cut" && name === CopyItem.get("item").name && path === CopyItem.get("item").path && isFolder === CopyItem.get("item").isFolder;
+        var activeTag = name === ActiveParam.get("item").name && isFolder === ActiveParam.get("item").isFolder;
+        var renameTag = RenameParam.get("item").name === name && RenameParam.get("item").isFolder === isFolder;
         const type = fileType(ext,isFolder);
         return (
-            <li className={name === ActiveParam.get("val") ? "file-item active" : "file-item"} onDoubleClick={this.handleDoubleClick} onMouseDown={this.mousedown}>
+            <li className={activeTag ? "file-item active" : "file-item"} onDoubleClick={this.handleDoubleClick} onMouseDown={this.mousedown}>
                 <span className={cutTag ? "file-item-icon file-item-cut" : "file-item-icon"}>
                     <Icon type={type}/>
                 </span>
                 {
-                    RenameParam.get("val") === name ?
+                    renameTag ?
                     <input className="file-item-input" ref="fileItemInput" type="text" value={this.state.renameValue} onBlur={(e)=>this.handleRenameBlur(e)} onChange={this.handleChangeRename} onMouseDown={this.handleRenameMouseDown} />
                     :
                     <p className={cutTag ? "file-item-name file-item-cut" : "file-item-name"}>{name}</p>
@@ -62,11 +64,11 @@ var FileItem = React.createClass({
     },
     handleRenameBlur(){
         this.handleRename();
-        RenameParam.set("val","");
+        RenameParam.set("item",{});
     },
     handleRename(){
         var newName = this.state.renameValue;
-        var oldName = RenameParam.get("val");
+        var oldName = RenameParam.get("item").name;
         if(newName !== "" && oldName !== newName){
             doAction("rename",{
                 name: newName,
@@ -81,8 +83,8 @@ var FileItem = React.createClass({
                     }
                 });
                 CloudFiles.reset(fileList);
-                message.success("成功将 " + ActiveParam.get("val") + " 重命名为 " + newName + "]");
-                ActiveParam.set("val",newName);
+                message.success("成功将 " + oldName + " 重命名为 " + newName + "]");
+                ActiveParam.set("item",data);
             },function(error){
                 console.log(error);
             });
@@ -103,9 +105,14 @@ var FileItem = React.createClass({
     mousedown(e){
         e.stopPropagation();
         const {
-            name
+            name,
+            isFolder
         } = this.props;
-        ActiveParam.set("val",name);
+        _.map(CloudFiles.toJSON(),function(obj){
+            if(obj.name === name && obj.isFolder === isFolder){
+                ActiveParam.set("item",obj);
+            }
+        });
         if(e.button === 2){
             ContextMenuParam.set({
                 display: true,

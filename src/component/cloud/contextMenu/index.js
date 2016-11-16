@@ -80,7 +80,7 @@ var ContextMenu = React.createClass({
                 ContextMenuParam.set({
                     display: false
                 });
-                ActiveParam.set("val",fileName);
+                ActiveParam.set("item",data);
                 message.success("成功新建文件夹[" + fileName + "]");
             },function(error){
                 console.log(error);
@@ -89,10 +89,10 @@ var ContextMenu = React.createClass({
             ContextMenuParam.set({
                 display: false
             });
-            var removeName = ActiveParam.get("val");
-            var removePath = getPath(removeName);
+            var removeObj = ActiveParam.get("item");
+            var removePath = getPath(removeObj.name);
             Modal.confirm({
-                title: "是否确认删除[" + removeName +"]",
+                title: "是否确认删除[" + removeObj.name +"]",
                 content: "删除后数据不可恢复,请确认操作!",
                 onOk: function(){
                     doAction(actionType,{
@@ -100,7 +100,7 @@ var ContextMenu = React.createClass({
                     },function(data){
                         var fileList = [];
                         _.map(CloudFiles.toJSON(),function(obj){
-                            if(obj.name !== removeName){
+                            if(obj.name !== removeObj.name || obj.isFolder !== removeObj.isFolder){
                                 fileList.push(obj);
                             }
                         });
@@ -131,12 +131,12 @@ var ContextMenu = React.createClass({
                 console.log(error);
             });
         }else if(actionType === "rename"){
-            RenameParam.set("val",ActiveParam.get("val"));
+            RenameParam.set("item",ActiveParam.get("item"));
             ContextMenuParam.set({
                 display: false
             });
         }else if(actionType === "copy" || actionType === "cut"){
-            var copyName = ActiveParam.get("val");
+            var copyName = ActiveParam.get("item").name;
             _.map(CloudFiles.toJSON(),function(obj){
                 if(copyName === obj.name){
                     CopyItem.set("type",actionType);
