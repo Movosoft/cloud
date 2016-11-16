@@ -158,7 +158,7 @@ var ContextMenu = React.createClass({
                     }
                 });
                 if(exist){
-                    message.success("有同名项目,不允许粘贴");
+                    message.warning("有同名项目,不允许粘贴");
                 }else{
                     var type = CopyItem.get("type");
                     doAction(actionType,{
@@ -175,7 +175,7 @@ var ContextMenu = React.createClass({
                     });
                 }
             }else{
-                message.success("复制目录不能与粘贴目录相同");
+                message.warning("复制目录不能与粘贴目录相同");
             }
             ContextMenuParam.set({
                 display: false
