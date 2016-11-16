@@ -21,7 +21,7 @@ import {
     getPath,
     doAction
 } from "../api.js";
-// import $ from "jquery";
+import $ from "jquery";
 
 var FileItem = React.createClass({
     getInitialState(){
@@ -53,6 +53,11 @@ var FileItem = React.createClass({
                 }
             </li>
         );
+    },
+    componentDidUpdate(){
+        if(this.refs.fileItemInput){
+            $(this.refs.fileItemInput).focus();
+        }
     },
     handleRenameMouseDown(e){
         e.stopPropagation();
