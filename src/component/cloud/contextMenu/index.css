@@ -10,7 +10,7 @@
     background-color: #fff;
     border: 1px solid #ccc;
     border-bottom: none;
-    cursor: hand;
+    cursor: pointer;
 }
 
 .context-menu li:first-child {

@@ -28,6 +28,10 @@ export const CopyItem = new Backbone.Model({
     item: {}
 });
 
+export const UploadParams = new Backbone.Model({
+    visible: false
+});
+
 export default {
     CloudFiles,
     CloudPaths,
@@ -35,5 +39,6 @@ export default {
     ActiveParam,
     ContextMenuParam,
     RenameParam,
-    CopyItem
+    CopyItem,
+    UploadParams
 };

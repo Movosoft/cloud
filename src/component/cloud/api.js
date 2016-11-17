@@ -11,6 +11,7 @@ const REMOVE = HOST + "/file/remove";
 const RENAME_FILE = HOST + "/file/rename";
 const PASTE_FOR_COPY = HOST + "/file/copy";
 const PASTE_FOR_CUT = HOST + "/file/move";
+// const UPLOAD_FILE = HOST + "/file/upload";
 
 export function getPath(itemName){
     var path = "";

@@ -6,7 +6,8 @@ import {
     ActiveParam,
     LoadingParam,
     CloudPaths,
-    RenameParam
+    RenameParam,
+    UploadParams
 } from "../model.js";
 import _ from "underscore";
 import Backbone from "backbone";
@@ -30,6 +31,7 @@ var ContextMenu = React.createClass({
                 return (
                     <ul className="context-menu" style={{left:x+"px",top:y+"px"}}>
                         <li onMouseDown={(e)=>this.mouseDown(e,"refresh")}>刷新</li>
+                        <li onMouseDown={(e)=>this.mouseDown(e,"uploadFile")}>上传文件</li>
                         <li onMouseDown={(e)=>this.mouseDown(e,"newFolder")}>新建文件夹</li>
                         {
                             _.keys(CopyItem.get("item")).length ?
@@ -180,6 +182,11 @@ var ContextMenu = React.createClass({
             ContextMenuParam.set({
                 display: false
             });
+        }else if(actionType === "uploadFile"){
+            ContextMenuParam.set({
+                display: false
+            });
+            UploadParams.set("visible",true);
         }
     }
 });

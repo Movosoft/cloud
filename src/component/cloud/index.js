@@ -12,7 +12,8 @@ import {
     ActiveParam,
     ContextMenuParam,
     CopyItem,
-    RenameParam
+    RenameParam,
+    UploadParams
 } from "./model.js";
 import bindModel from "./bindModel.js";
 import Backbone from "backbone";
@@ -24,6 +25,7 @@ import Nav from "./nav";
 import ContextMenu from "./contextMenu";
 import "antd/dist/antd.css"
 import "./index.css";
+import UploadModal from "./uploadModal";
 
 var Cloud = React.createClass({
     getInitialState: function(){
@@ -34,7 +36,8 @@ var Cloud = React.createClass({
             active: ActiveParam,
             contextMenu: ContextMenuParam,
             copyItem: CopyItem,
-            renameParam: RenameParam
+            renameParam: RenameParam,
+            uploadParams: UploadParams
         };
     },
     mixins: [bindModel],
@@ -45,6 +48,7 @@ var Cloud = React.createClass({
                 <Nav />
                 <FileList />
                 <ContextMenu />
+                <UploadModal />
             </div>
         );
     },
@@ -56,6 +60,7 @@ var Cloud = React.createClass({
         this.setSingleDataFlow("ContextMenuParam","contextMenu");
         this.setSingleDataFlow("CopyItem","copyItem");
         this.setSingleDataFlow("RenameParam","renameParam");
+        this.setSingleDataFlow("UploadParams","uploadParams");
         const {params} = this.props;
         const {splat} = params;
         // console.info("componentDidMount",splat);
