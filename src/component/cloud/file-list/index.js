@@ -43,7 +43,12 @@ var FileItem = React.createClass({
         return (
             <li className={activeTag ? "file-item active" : "file-item"} onDoubleClick={this.handleDoubleClick} onMouseDown={this.mousedown}>
                 <span className={cutTag ? "file-item-icon file-item-cut" : "file-item-icon"}>
-                    <Icon type={type}/>
+                    {
+                        type === "image" ? 
+                        <img className="thumbnail" src={"http://101.200.129.112:9527/static/" + path} alt={name}/>
+                        :
+                        <Icon type={type}/>
+                    }
                 </span>
                 {
                     renameTag ?

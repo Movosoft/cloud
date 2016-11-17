@@ -50,3 +50,11 @@
     outline: none;
     border: none;
 }
+
+.thumbnail {
+    margin-top: 15px;
+    max-width: 150px;
+    max-height: 50px;
+    border: none;
+    outline: none;
+}

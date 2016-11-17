@@ -29,7 +29,7 @@ export default function fileType(ext,isFolder){
     ];
 
     if(has(img,ext)){
-        return "code";
+        return "image";
     }
 
     const unknow = "question-circle-o";
