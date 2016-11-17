@@ -14,6 +14,7 @@
 
 .file-item-icon {
     display: block;
+    margin: 0 auto;
     font-size: 45px;
     color: #787878;
 }
@@ -24,6 +25,7 @@
 
 .file-item-name {
     overflow: hidden;
+    display: block;
     font-size: 14px;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -42,8 +44,10 @@
 }
 
 .file-item-input {
+    display: block;
     width: 120px;
     height: 20px;
+    margin: 0 auto;
     text-indent: 5px;
     font-size: 14px;
     line-height: 30px;
@@ -52,7 +56,8 @@
 }
 
 .thumbnail {
-    margin-top: 15px;
+    display: block;
+    margin: 15px auto 10px;
     max-width: 150px;
     max-height: 50px;
     border: none;
